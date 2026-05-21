@@ -1,0 +1,119 @@
+16. Write a program for demonstrating Context 
+menu along with event handler. 
+activity_main.xml 
+<?xml version="1.0" encoding="utf-8"?> 
+<LinearLayout 
+    
+xmlns:android="http://schemas.android.com/apk/re
+s/android" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:gravity="center" 
+    android:orientation="vertical"> 
+ 
+    <TextView 
+        android:id="@+id/textView" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:text="Long Press Me" 
+        android:textSize="24sp" 
+        android:padding="20dp"/> 
+ 
+</LinearLayout> 
+ 
+Step to Create Menu Folder in res 
+app → res 
+Right click on res 
+New → Android Resource Directory 
+Resource type: menu 
+Right click on menu 
+New → Menu Resource File 
+context_menu.xml 
+ 
+context_menu.xml 
+<?xml version="1.0" encoding="utf-8"?> 
+<menu 
+xmlns:android="http://schemas.android.com/apk/re
+s/android"> 
+    <item 
+        android:id="@+id/red" 
+        android:title="Red Color"/> 
+ 
+    <item 
+        android:id="@+id/blue" 
+        android:title="Blue Color"/> 
+ 
+    <item 
+        android:id="@+id/green" 
+        android:title="Green Color"/> 
+ 
+</menu> 
+ 
+MainActivity.java 
+package com.example.contextmenudemo; 
+import android.graphics.Color; 
+import android.os.Bundle; 
+import android.view.ContextMenu; 
+import android.view.MenuItem; 
+import android.view.View; 
+import android.widget.TextView; 
+ 
+import androidx.annotation.NonNull; 
+import 
+androidx.appcompat.app.AppCompatActivity; 
+ 
+public class MainActivity extends 
+AppCompatActivity { 
+ 
+    TextView textView; 
+ 
+    @Override 
+    protected void onCreate(Bundle 
+savedInstanceState) { 
+        super.onCreate(savedInstanceState); 
+        setContentView(R.layout.activity_main); 
+ 
+        textView = findViewById(R.id.textView); 
+ 
+        // Register Context Menu 
+        registerForContextMenu(textView); 
+    } 
+ 
+    // Create Context Menu 
+    @Override 
+    public void onCreateContextMenu(ContextMenu 
+menu, 
+                                    View v,                                   
+ContextMenu.ContextMenuInfo menuInfo) { 
+ 
+        super.onCreateContextMenu(menu, v, 
+menuInfo); 
+ 
+        menu.setHeaderTitle("Choose Color"); 
+       
+getMenuInflater().inflate(R.menu.context_menu, 
+menu); 
+    } 
+    // Event Handling 
+    @Override 
+    public boolean 
+onContextItemSelected(@NonNull MenuItem 
+item) { 
+        if(item.getItemId() == R.id.red) 
+        { 
+            textView.setTextColor(Color.RED); 
+            return true; 
+        } 
+        else if(item.getItemId() == R.id.blue) 
+        { 
+            textView.setTextColor(Color.BLUE); 
+            return true; 
+        } 
+        else if(item.getItemId() == R.id.green) 
+        { 
+            textView.setTextColor(Color.GREEN); 
+            return true; 
+        } 
+        return super.onContextItemSelected(item); 
+    } 
+} 
