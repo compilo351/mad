@@ -1,0 +1,60 @@
+6.Write an application for applying the List view 
+layout 
+XML::::::::::: 
+<?xml version="1.0" encoding="utf-8"?> 
+<LinearLayout 
+xmlns:android="http://schemas.android.com/apk/re
+s/android" 
+    xmlns:app="http://schemas.android.com/apk/res
+auto" 
+    xmlns:tools="http://schemas.android.com/tools" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:orientation="vertical" 
+    tools:context=".MainActivity"> 
+    <ListView 
+        android:id="@+id/mobile_list" 
+        android:layout_width="match_parent" 
+        android:layout_height="wrap_content" > 
+    </ListView> 
+</LinearLayout> 
+JAVA::::::::::::::::::: 
+package com.example.app; 
+import 
+androidx.appcompat.app.AppCompatActivity; 
+import android.os.Bundle; 
+import android.widget.*; 
+public class MainActivity extends 
+AppCompatActivity { 
+    // Array of strings... 
+    String[] mobileArray = 
+{"Android","IPhone","WindowsMobile","Blackber
+ry", 
+            "WebOS","Ubuntu","Windows7","Max OS 
+X"}; 
+    @Override 
+    protected void onCreate(Bundle 
+savedInstanceState) { 
+        super.onCreate(savedInstanceState); 
+        setContentView(R.layout.activity_main); 
+        ArrayAdapter adapter = new 
+ArrayAdapter<String>(this, 
+                R.layout.activity_listview, mobileArray); 
+        ListView listView = (ListView) 
+findViewById(R.id.mobile_list); 
+        listView.setAdapter(adapter); 
+    } 
+} 
+activity_listview::::::::::::::::: 
+<?xml version="1.0" encoding="utf-8"?> 
+<!--  Single List Item Design --> 
+<TextView 
+xmlns:android="http://schemas.android.com/apk/re
+s/android" 
+    android:id="@+id/label" 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent" 
+    android:padding="10dip" 
+    android:textSize="16dip" 
+    android:textStyle="bold" > 
+</TextView> 
