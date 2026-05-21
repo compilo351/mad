@@ -1,0 +1,82 @@
+2.Write a program for creating the two fragments 
+on single screen. 
+XML:::::::: 
+<?xmlversion="1.0"encoding="utf-8"?> 
+<LinearLayout 
+xmlns:android="http://schemas.android.com/apk/re
+s/android" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:orientation="vertical"> 
+    <FrameLayout 
+        android:id="@+id/fragment1" 
+        android:layout_width="match_parent" 
+        android:layout_height="200dp"/> 
+    <FrameLayout 
+        android:id="@+id/fragment2" 
+        android:layout_width="match_parent" 
+        android:layout_height="200dp"/> 
+</LinearLayout> 
+ 
+ 
+JAVA::::::: 
+package com.example.app; 
+ 
+import android.graphics.Color; 
+import android.os.Bundle; 
+import android.view.*; 
+import android.widget.LinearLayout; 
+import android.widget.TextView; 
+ 
+import 
+androidx.appcompat.app.AppCompatActivity; 
+import androidx.fragment.app.Fragment; 
+ 
+public class MainActivity extends 
+AppCompatActivity { 
+ 
+    protected void onCreate(Bundle b) { 
+        super.onCreate(b); 
+        setContentView(R.layout.activity_main); 
+ 
+        
+getSupportFragmentManager().beginTransaction() 
+                .add(R.id.fragment1, new 
+FirstFragment()) 
+                .add(R.id.fragment2, new 
+SecondFragment()) 
+                .commit(); 
+    } 
+ 
+    public static class FirstFragment extends 
+Fragment { 
+ 
+        public View onCreateView(LayoutInflater i, 
+ViewGroup g, Bundle b) { 
+ 
+            TextView tv = new 
+TextView(getActivity()); 
+            tv.setText("First Fragment"); 
+            tv.setTextSize(25); 
+            tv.setBackgroundColor(Color.YELLOW); 
+ 
+            return tv; 
+        } 
+    } 
+ 
+    public static class SecondFragment extends 
+Fragment { 
+ 
+        public View onCreateView(LayoutInflater i, 
+ViewGroup g, Bundle b) { 
+ 
+            TextView tv = new 
+TextView(getActivity()); 
+            tv.setText("Second Fragment"); 
+            tv.setTextSize(25); 
+            tv.setBackgroundColor(Color.CYAN); 
+ 
+            return tv; 
+        } 
+    } 
+} 
