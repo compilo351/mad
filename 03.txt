@@ -1,0 +1,41 @@
+3.Write an application for applying the linear 
+layout 
+XML:::::: 
+<?xml version="1.0" encoding="utf-8"?> 
+<LinearLayout 
+xmlns:android="http://schemas.android.com/apk/re
+s/android" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:orientation="vertical" 
+    android:padding="20dp"> 
+    <TextView 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:text="Linear Layout Example" 
+        android:textSize="24sp"/> 
+    <EditText 
+        android:layout_width="match_parent" 
+        android:layout_height="wrap_content" 
+        android:hint="Enter Name"/> 
+    <Button 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:text="Submit"/> 
+</LinearLayout> 
+ 
+JAVA:::::::::::::: 
+package com.example.app; 
+ 
+import android.os.Bundle; 
+import 
+androidx.appcompat.app.AppCompatActivity; 
+ 
+public class MainActivity extends 
+AppCompatActivity { 
+ 
+    protected void onCreate(Bundle b) { 
+        super.onCreate(b); 
+        setContentView(R.layout.activity_main); 
+    } 
+} 
