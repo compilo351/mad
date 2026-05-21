@@ -1,0 +1,110 @@
+22. Write a program for demonstrating progress 
+bar along with the progress percentage to be 
+display on screen 
+<?xml version="1.0" encoding="utf-8"?> 
+<LinearLayout 
+    
+xmlns:android="http://schemas.android.com/apk/re
+s/android" 
+    xmlns:tools="http://schemas.android.com/tools" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:orientation="vertical" 
+    android:gravity="center" 
+    android:padding="20dp" 
+    tools:context=".MainActivity"> 
+ 
+    <!-- Progress Bar --> 
+    <ProgressBar 
+        android:id="@+id/progressBar" 
+        
+style="?android:attr/progressBarStyleHorizontal" 
+        android:layout_width="300dp" 
+        android:layout_height="wrap_content" 
+        android:max="100" 
+        android:progress="0"/> 
+ 
+    <!-- Percentage Text --> 
+    <TextView 
+        android:id="@+id/txtPercentage" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:text="0%" 
+        android:textSize="24sp" 
+        android:layout_marginTop="20dp"/> 
+ 
+    <!-- Button --> 
+    <Button 
+        android:id="@+id/btnStart" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:text="Start Progress" 
+        android:layout_marginTop="20dp"/> 
+ 
+</LinearLayout> 
+ 
+ 
+package com.example.progressbardemo; 
+ 
+import 
+androidx.appcompat.app.AppCompatActivity; 
+ 
+import android.os.Bundle; 
+import android.os.Handler; 
+import android.widget.Button; 
+import android.widget.ProgressBar; 
+import android.widget.TextView; 
+ 
+public class MainActivity extends 
+AppCompatActivity { 
+ 
+    ProgressBar progressBar; 
+    TextView txtPercentage; 
+    Button btnStart; 
+ 
+    int progressStatus = 0; 
+ 
+    Handler handler = new Handler(); 
+ 
+    @Override 
+    protected void onCreate(Bundle 
+savedInstanceState) { 
+        super.onCreate(savedInstanceState); 
+        setContentView(R.layout.activity_main); 
+ 
+        progressBar = 
+findViewById(R.id.progressBar); 
+        txtPercentage = 
+findViewById(R.id.txtPercentage); 
+        btnStart = findViewById(R.id.btnStart); 
+ 
+        btnStart.setOnClickListener(view -> { 
+ 
+            progressStatus = 0; 
+ 
+            new Thread(() -> { 
+ 
+                while (progressStatus < 100) { 
+ 
+                    progressStatus += 1; 
+ 
+                    handler.post(() -> { 
+                        
+progressBar.setProgress(progressStatus); 
+                        txtPercentage.setText(progressStatus 
++ "%"); 
+                    }); 
+ 
+                    try { 
+                        Thread.sleep(100); 
+                    } catch (InterruptedException e) { 
+                        e.printStackTrace(); 
+                    } 
+                } 
+ 
+            }).start(); 
+ 
+        }); 
+ 
+    } 
+} 
