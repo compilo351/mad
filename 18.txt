@@ -1,0 +1,119 @@
+18. Write a program for demonstrating 
+notification 
+ 
+<?xml version="1.0" encoding="utf-8"?> 
+<LinearLayout 
+xmlns:android="http://schemas.android.com/apk/re
+s/android" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:gravity="center" 
+    android:orientation="vertical"> 
+ 
+    <Button 
+        android:id="@+id/btn" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:text="Show Notification"/> 
+ 
+</LinearLayout> 
+ 
+ 
+package com.example.notificationdemo; 
+ 
+import android.Manifest; 
+import android.app.NotificationChannel; 
+import android.app.NotificationManager; 
+import android.content.pm.PackageManager; 
+import android.os.Build; 
+import android.os.Bundle; 
+import android.widget.Button; 
+ 
+import 
+androidx.appcompat.app.AppCompatActivity; 
+import androidx.core.app.ActivityCompat; 
+import androidx.core.app.NotificationCompat; 
+import 
+androidx.core.app.NotificationManagerCompat; 
+ 
+public class MainActivity extends 
+AppCompatActivity { 
+ 
+    Button btn; 
+    @Override 
+    protected void onCreate(Bundle 
+savedInstanceState) { 
+        super.onCreate(savedInstanceState); 
+        setContentView(R.layout.activity_main); 
+ 
+        btn = findViewById(R.id.btn); 
+        // Create Notification Channel 
+        if (Build.VERSION.SDK_INT >= 
+Build.VERSION_CODES.O) { 
+ 
+            NotificationChannel channel = 
+                    new NotificationChannel( 
+                            "MyNotification", 
+                            "MyNotification", 
+                            
+NotificationManager.IMPORTANCE_HIGH 
+                    ); 
+ 
+            channel.enableVibration(true); 
+ 
+            NotificationManager manager = 
+                    
+getSystemService(NotificationManager.class); 
+manager.createNotificationChannel(channel); 
+        } 
+        // Permission for Android 13+ 
+        if (Build.VERSION.SDK_INT >= 
+Build.VERSION_CODES.TIRAMISU) { 
+ 
+            ActivityCompat.requestPermissions( 
+                    this, 
+                    new 
+String[]{Manifest.permission.POST_NOTIFICATI
+ONS}, 
+                    1 
+            ); 
+        } 
+        btn.setOnClickListener(view -> { 
+ 
+            NotificationCompat.Builder builder = 
+                    new NotificationCompat.Builder( 
+                            MainActivity.this, 
+                            "MyNotification" 
+                    )                            
+.setSmallIcon(android.R.drawable.ic_dialog_info) 
+                            .setContentTitle("Notification 
+Demo") 
+                            .setContentText("Notification 
+displayed successfully") 
+                            
+.setPriority(NotificationCompat.PRIORITY_HIGH
+) 
+                            
+.setDefaults(NotificationCompat.DEFAULT_ALL) 
+                            .setAutoCancel(true); 
+ 
+            if (ActivityCompat.checkSelfPermission( 
+                    MainActivity.this, 
+                    
+Manifest.permission.POST_NOTIFICATIONS) 
+                    != 
+PackageManager.PERMISSION_GRANTED) { 
+ 
+                return; 
+            } 
+NotificationManagerCompat.from(MainActivity.thi
+s) 
+                    .notify(1, builder.build()); 
+        }); 
+    } 
+} 
+app > manifests > AndroidManifest.xml 
+Add permission ABOVE <application>: 
+<uses-permission 
+android:name="android.permission.POST_NOTIFI
+CATIONS"/>
