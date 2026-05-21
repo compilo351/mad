@@ -1,0 +1,55 @@
+8.Write an application for applying the Grid 
+layout 
+XML:::::::::::::::: 
+<?xml version="1.0" encoding="utf-8"?> 
+<GridLayout 
+xmlns:android="http://schemas.android.co
+m/apk/res/android" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:columnCount="3" 
+    android:rowCount="2" 
+    android:padding="10dp"> 
+     
+<Button 
+       android:layout_width="wrap_content" 
+      android:layout_height="wrap_content" 
+        android:text="Button1" /> 
+ <Button 
+       android:layout_width="wrap_content" 
+      android:layout_height="wrap_content" 
+        android:text="Button2" /> 
+     
+<Button 
+       android:layout_width="wrap_content" 
+      android:layout_height="wrap_content" 
+        android:text="Button3" /> 
+     
+<Button 
+       android:layout_width="wrap_content" 
+      android:layout_height="wrap_content" 
+        android:text="Button4" /> 
+     
+<EditText 
+        android:layout_width="150dp" 
+     android:layout_height="wrap_content" 
+        android:hint="Enter Name" /> 
+</GridLayout> 
+ 
+JAVA:::::::: 
+package com.example.app; 
+ 
+import android.os.Bundle; 
+import 
+androidx.appcompat.app.AppCompatActiv
+ity 
+public class MainActivity extends 
+AppCompatActivity { 
+    @Override 
+    protected void onCreate(Bundle 
+savedInstanceState) { 
+        super.onCreate(savedInstanceState); 
+      
+setContentView(R.layout.activity_main); 
+    } 
+}
