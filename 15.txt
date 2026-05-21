@@ -1,0 +1,117 @@
+15.Write a program for demonstrating Option 
+menu along with event handler. 
+XML:::::::::::::::::::::::: 
+Step to Create Menu Folder in res 
+app → res 
+Right click on res 
+New → Android Resource Directory 
+Resource type: menu 
+Right click on menu 
+New → Menu Resource File 
+option_menu.xml 
+ 
+option_menu.xml 
+<?xml version="1.0" encoding="utf-8"?> 
+<menu 
+xmlns:android="http://schemas.android.com/apk/re
+s/android"> 
+ 
+    <item 
+        android:id="@+id/home" 
+        android:title="Home"/> 
+ 
+    <item 
+        android:id="@+id/settings" 
+        android:title="Settings"/> 
+ 
+    <item 
+        android:id="@+id/about" 
+        android:title="About"/> 
+ 
+</menu> 
+ 
+ 
+activity_main.xml 
+<?xml version="1.0" encoding="utf-8"?> 
+<LinearLayout 
+    
+xmlns:android="http://schemas.android.com/apk/re
+s/android" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:gravity="center" 
+    android:orientation="vertical"> 
+ 
+    <TextView 
+        android:id="@+id/textView" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:text="Option Menu Demo" 
+        android:textSize="25sp"/> 
+ 
+</LinearLayout> 
+ 
+MainActivity.java 
+package com.example.optionmenudemo; 
+ 
+import android.os.Bundle; 
+import android.view.Menu; 
+import android.view.MenuItem; 
+import android.widget.Toast; 
+ 
+import androidx.annotation.NonNull; 
+import 
+androidx.appcompat.app.AppCompatActivity; 
+ 
+public class MainActivity extends 
+AppCompatActivity { 
+ 
+    @Override 
+    protected void onCreate(Bundle 
+savedInstanceState) { 
+        super.onCreate(savedInstanceState); 
+        setContentView(R.layout.activity_main); 
+    } 
+ 
+    // Create Option Menu 
+    @Override 
+    public boolean onCreateOptionsMenu(Menu 
+menu) { 
+        
+getMenuInflater().inflate(R.menu.option_menu, 
+menu); 
+        return true; 
+    } 
+ 
+    // Handle Menu Item Click 
+    @Override 
+    public boolean 
+onOptionsItemSelected(@NonNull MenuItem 
+item) { 
+ 
+        int id = item.getItemId(); 
+ 
+        if (id == R.id.home) { 
+            Toast.makeText(this, "Home Selected", 
+Toast.LENGTH_SHORT).show(); 
+        } 
+ 
+        else if (id == R.id.settings) { 
+            Toast.makeText(this, "Settings Selected", 
+Toast.LENGTH_SHORT).show(); 
+        } 
+ 
+        else if (id == R.id.about) { 
+            Toast.makeText(this, "About Selected", 
+Toast.LENGTH_SHORT).show(); 
+        } 
+ 
+        return true; 
+    } 
+} 
+Go to: 
+app → res → values → themes.xml 
+You will see something like: 
+parent="Theme.Material3.DayNight.NoActionBar" 
+Replace the parent line with: 
+parent="Theme.AppCompat.Light.DarkActionBar" 
