@@ -1,0 +1,151 @@
+19. Write a program for inserting data into 
+database using SQLIte 
+create database class. 
+Create New Java Class 
+Right click: 
+app > java > your package name 
+Click: 
+New > Java Class 
+Name it: 
+DBHelper 
+ 
+DBHelper.java 
+package com.example.sqlitedemo; 
+ 
+import android.content.ContentValues; 
+import android.content.Context; 
+import android.database.sqlite.SQLiteDatabase; 
+import android.database.sqlite.SQLiteOpenHelper; 
+ 
+public class DBHelper extends SQLiteOpenHelper 
+{ 
+    public static final String DATABASE_NAME = 
+"StudentDB"; 
+    public DBHelper(Context context) { 
+        super(context, DATABASE_NAME, null, 1); 
+    } 
+    @Override 
+    public void onCreate(SQLiteDatabase db) { 
+ 
+        db.execSQL("CREATE TABLE students(id 
+INTEGER PRIMARY KEY AUTOINCREMENT, 
+name TEXT, age INTEGER)"); 
+    } 
+    @Override 
+    public void onUpgrade(SQLiteDatabase db, int 
+oldVersion, int newVersion) { 
+        db.execSQL("DROP TABLE IF EXISTS 
+students"); 
+        onCreate(db); 
+    } 
+    public boolean insertData(String name, String 
+age) { 
+ 
+        SQLiteDatabase db = 
+this.getWritableDatabase(); 
+ 
+        ContentValues contentValues = new 
+ContentValues(); 
+ 
+        contentValues.put("name", name); 
+        contentValues.put("age", age); 
+ 
+        long result = db.insert("students", null, 
+contentValues); 
+        if(result == -1) 
+            return false; 
+        else 
+            return true; 
+    } 
+} 
+activity_main.xml 
+<?xml version="1.0" encoding="utf-8"?> 
+<LinearLayout 
+    
+xmlns:android="http://schemas.android.com/apk/re
+s/android" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:orientation="vertical" 
+    android:padding="20dp"> 
+ 
+    <EditText 
+        android:id="@+id/editName" 
+        android:layout_width="match_parent" 
+        android:layout_height="wrap_content" 
+        android:hint="Enter Name"/> 
+ 
+    <EditText 
+        android:id="@+id/editAge" 
+        android:layout_width="match_parent" 
+        android:layout_height="wrap_content" 
+        android:hint="Enter Age" 
+        android:inputType="number"/> 
+ 
+    <Button 
+        android:id="@+id/btnInsert" 
+        android:layout_width="match_parent" 
+        android:layout_height="wrap_content" 
+        android:text="Insert Data"/> 
+ 
+</LinearLayout> 
+ 
+ MainActivity.java 
+ package com.example.sqlitedemo; 
+ 
+import 
+androidx.appcompat.app.AppCompatActivity; 
+ 
+import android.os.Bundle; 
+import android.view.View; 
+import android.widget.Button; 
+import android.widget.EditText; 
+import android.widget.Toast; 
+ 
+public class MainActivity extends 
+AppCompatActivity { 
+ 
+    EditText editName, editAge; 
+    Button btnInsert; 
+ 
+    DBHelper DB; 
+ 
+    @Override 
+    protected void onCreate(Bundle 
+savedInstanceState) { 
+        super.onCreate(savedInstanceState); 
+        setContentView(R.layout.activity_main); 
+ 
+        editName = findViewById(R.id.editName); 
+        editAge = findViewById(R.id.editAge); 
+        btnInsert = findViewById(R.id.btnInsert); 
+ 
+        DB = new DBHelper(this); 
+ 
+        btnInsert.setOnClickListener(new 
+View.OnClickListener() { 
+            @Override 
+            public void onClick(View v) { 
+ 
+                String name = 
+editName.getText().toString(); 
+                String age = editAge.getText().toString(); 
+ 
+                Boolean checkInsert = 
+DB.insertData(name, age); 
+                if(checkInsert == true) 
+                { 
+                    Toast.makeText(MainActivity.this, 
+                            "Data Inserted", 
+                            Toast.LENGTH_SHORT).show(); 
+                } 
+                else 
+                { 
+                    Toast.makeText(MainActivity.this, 
+                            "Data Not Inserted", 
+                            Toast.LENGTH_SHORT).show(); 
+                } 
+            } 
+        }); 
+    } 
+}
